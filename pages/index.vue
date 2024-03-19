@@ -1,4 +1,4 @@
 <template>
   <Cart />
-  <Swiper></Swiper>
+  <ViewedItems />
 </template>

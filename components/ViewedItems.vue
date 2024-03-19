@@ -3,17 +3,19 @@
     <h2 class="viewed-items__title">Просмотренные товары</h2>
     <div class="viewed-items__controller">
       <button type="button" class="viewed-items__button viewed-items__button_left" @click="prevSlide"></button>
-      <span class="viewed-items__text viewed-items__text_accent">{{ currentSlide }}<span class="viewed-items__text"
-          ref="slidesText"></span></span>
+      <span class="viewed-items__text viewed-items__text_accent">
+        {{ currentSlide }}
+        <span class="viewed-items__text"> / {{ numOfSlides }}</span>
+      </span>
       <button type="button" class="viewed-items__button viewed-items__button_right" @click="nextSlide"></button>
     </div>
     <div class="viewed-items__swiper">
-      <swiper-container :space-between="20" :slides-per-view="4" :allowTouchMove="false"
-        @swiperslidechange=" currentSlide = Math.ceil(swiperElement.swiper.activeIndex / 4) + 1" ref="swiperElement">
-        <swiper-slide v-for="item in items" :key="item.name">
+      <Swiper :space-between="20" :slides-per-view="4" :allowTouchMove="false" @swiper="onSwiper"
+        @transition-start="currentSlide = Math.ceil(swiperElement.realIndex / slidesPerView) + 1">
+        <SwiperSlide v-for="item in items" :key="item.name">
           <Slide :item="item" />
-        </swiper-slide>
-      </swiper-container>
+        </SwiperSlide>
+      </Swiper>
     </div>
   </section>
 </template>
@@ -92,34 +94,31 @@
 </style>
 
 <script setup>
-import { register } from "swiper/element/bundle"
 import store from "~/store/store";
 
+
+const items = computed(() => store.state.catalog)
+
 const swiperElement = ref(null)
-const slidesText = ref(null)
+const numOfSlides = ref(1)
 const currentSlide = ref(1)
 const slidesPerView = 4;
 
-// configure slides text
-onMounted(() => {
-  slidesText.value.innerText += ` /  ${Math.ceil(swiperElement.value.swiper.slides.length / 4)}`
-})
-
-// get items from store
-const items = computed(() => store.state.catalog)
-
-// import and configure Swiper
-register()
+const onSwiper = (swiper) => {
+  swiperElement.value = swiper
+  console.log(swiper)
+  numOfSlides.value = Math.ceil(swiper.slides.length / slidesPerView)
+}
 
 const nextSlide = () => {
   for (let i = 0; i < slidesPerView; i++) {
-    swiperElement.value.swiper.slideNext()
+    swiperElement.value.slideNext()
   }
 }
 
 const prevSlide = () => {
   for (let i = 0; i < slidesPerView; i++) {
-    swiperElement.value.swiper.slidePrev()
+    swiperElement.value.slidePrev()
   }
 }
 </script>

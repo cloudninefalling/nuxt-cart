@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "nuxt": "^3.11.1",
-    "swiper": "^11.0.7",
+    "nuxt-swiper": "^1.2.2",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vuex": "^4.1.0"
