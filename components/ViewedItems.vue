@@ -106,7 +106,6 @@ const slidesPerView = 4;
 
 const onSwiper = (swiper) => {
   swiperElement.value = swiper
-  console.log(swiper)
   numOfSlides.value = Math.ceil(swiper.slides.length / slidesPerView)
 }
 
