@@ -62,11 +62,11 @@
 }
 
 .viewed-items__button_left {
-  background-image: url("../assets/button-left.svg");
+  background-image: url("~/assets/button-left.svg");
 }
 
 .viewed-items__button_right {
-  background-image: url(../assets/button-right.svg);
+  background-image: url("~/assets/button-right.svg");
 }
 
 .viewed-items__text {

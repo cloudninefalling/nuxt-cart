@@ -30,7 +30,7 @@
 
   width: 32px;
   height: 32px;
-  background-image: url("../assets/cart-image.svg");
+  background-image: url("~/assets/cart-image.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
