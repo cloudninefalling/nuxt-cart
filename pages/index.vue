@@ -1,0 +1,3 @@
+<template>
+  <Swiper></Swiper>
+</template>
