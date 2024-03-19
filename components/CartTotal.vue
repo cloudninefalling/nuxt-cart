@@ -165,25 +165,19 @@ const total = computed(() => store.getters["cart/cartTotal"]);
 
 const isLoading = ref(false);
 
-// const { mutate } = useMutation({
-//   mutationFn: (data) =>
-//     axios.post("https://jsonplaceholder.typicode.com/posts", data),
-//   onMutate: () => {
-//     isLoading.value = true;
-//   },
-//   onSuccess: (res) => {
-//     let string = ""
-//     let total = 0;
-//     res.data.items.forEach((item, i) => {
-//       string += `${i + 1}: ${item.name} - ${item.amount} шт. - ${item.price * item.amount} руб. \n`;
-//       total += item.price * item.amount;
-//     });
-//     alert(`Успех! \n${string} \nУстановка: ${res.data.isSetupNeeded ? "Да" : "Нет"} \n\nИтого: ${total} руб.`);
-//     isLoading.value = false;
-//   },
-// });
-
-const checkout = () => {
-  alert("checkout!")
+const checkout = async () => {
+  isLoading.value = true;
+  const { data } = await useFetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
+    body: cartInfo.value
+  });
+  let string = ""
+  let total = 0;
+  data.value.items.forEach((item, i) => {
+    string += `${i + 1}: ${item.name} - ${item.amount} шт. - ${item.price * item.amount} руб. \n`;
+    total += item.price * item.amount;
+  });
+  alert(`Успех! \n${string} \nУстановка: ${data.value.isSetupNeeded ? "Да" : "Нет"} \n\nИтого: ${total} руб.`);
+  isLoading.value = false;
 };
 </script>
