@@ -1,6 +1,6 @@
 <template>
   <div class="cart__option">
-    <input type="checkbox" class="cart__option-checkbox" aria-label="Установка" :checked="isSetupNeeded"
+    <input type="checkbox" class="cart__option-checkbox" aria-label="Установка" v-model="isSetupNeeded"
       @change="toggleIsSetupNeeded" />
 
     <img class="cart__option-image" src="~/assets/option-image.svg" alt="Установка" />
@@ -69,7 +69,7 @@
 <script setup>
 import store from '~/store/store';
 
-const isSetupNeeded = computed(() => store.getters["cart/isSetupNeeded"]);
+const isSetupNeeded = store.getters["cart/isSetupNeeded"];
 
 const toggleIsSetupNeeded = () => {
   store.commit("cart/toggleIsSetupNeeded");
